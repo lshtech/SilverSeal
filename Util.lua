@@ -44,9 +44,9 @@ end
 function add_seal(mod_id, sealId, locId, labelName, data, desc)
     -- Add Sprite
     SMODS.Sprite:new(mod_id .. locId, SMODS.findModByID(mod_id).path, locId .. ".png", 71, 95, "asset_atli"):register();
-    SMODS.injectSprites()
-    G.shared_seals[sealId] = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS[mod_id .. locId], { x = 0, y = 0 })
-
+    --SMODS.injectSprites()
+    --G.shared_seals[sealId] = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS["asset_atli"], { x = 0, y = 0 })
+    --G.shared_seals[self.key] = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS[self.atlas] or G.ASSET_ATLAS['centers'], self.pos)
     data.key = sealId
     data.order = #G.P_CENTER_POOLS.Seal + 1
     G.P_SEALS[sealId] = data
@@ -107,7 +107,7 @@ function parse_save_for_new_cards()
                     v
             end
             if not v.discovered and (string.find(k, '^j_') or string.find(k, '^b_') or string.find(k, '^e_') or string.find(k, '^c_') or string.find(k, '^p_') or string.find(k, '^v_')) and meta.discovered[k] then
-                v.discovered = true
+                v.discovered = false
             end
             if v.discovered and meta.alerted[k] or v.set == 'Back' or v.start_alerted then
                 v.alerted = true

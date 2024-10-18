@@ -9,35 +9,59 @@
 
 local MOD_ID = 'SilverSeal'
 
+SMODS.Seal {
+    name = "silver_seal",
+    key = "Silver",
+    badge_colour = HEX("a0a5ad"),
+    loc_txt = {
+        -- Badge name (displayed on card description when seal is applied)
+        label = 'Silver Seal',
+        -- Tooltip description
+        name = 'Silver Seal',
+        text = {
+            "When played",
+            "apply a random {C:attention}enhancment."
+        }
+    },
+    atlas = "asset_atli",
+    pos = {x=0, y=0},
+}
+
+SMODS.Atlas {
+    key = "asset_atli",
+    path = "silver_seal.png",
+    px = 71,
+    py = 95
+}
 
 function SMODS.INIT.SilverSeal()
     _RELEASE_MODE = false
 
-    add_seal(
-        MOD_ID,
-        'Silver',
-        'silver_seal',
-        'Silver Seal',
-        {
-            discovered = false,
-            set = 'Seal',
-            config = {}
-        },
-        {
-            name = "Silver Seal",
-            text = {
-                "When played",
-                "apply a random {C:attention}enhancment."
-            }
-        }
-    )
+    --add_seal(
+    --    MOD_ID,
+    --    'Silver',
+    --    'silver_seal',
+    --    'Silver Seal',
+    --    {
+    --        discovered = false,
+    --        set = 'Seal',
+    --        config = {}
+    --    },
+    --    {
+    --        name = "Silver Seal",
+    --        text = {
+    --            "When played",
+    --            "apply a random {C:attention}enhancment."
+    --        }
+    --    }
+    --)
 
     add_item(
         MOD_ID,
         'Spectral',
         'c_clone',
         {
-            discovered = true,
+            discovered = false,
             cost = 4,
             consumeable = true,
             set = 'Spectral',
@@ -66,9 +90,8 @@ local eval_card_ref = eval_card
 
 function eval_card(card, context)
     context = context or {}
-
     if context.cardarea == G.play then
-         if card.seal == 'Silver' then
+        if card.seal == 'Silver' then
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 delay = 0.2,
@@ -291,9 +314,9 @@ end
 
 -- UI code for seal
 local generate_card_ui_ref = generate_card_ui
-function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end)
+function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
     local fromRef = generate_card_ui_ref(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start,
-        main_end)
+        main_end, card)
 
     local info_queue = {}
 
